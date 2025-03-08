@@ -14,7 +14,6 @@ export default function Intro() {
 
 	const headingRef = useRef<HTMLHeadingElement>(null);
 	const bgImgRef = useRef<HTMLDivElement>(null);
-	const introImgRef = useRef<HTMLDivElement>(null);
 
 	const headingCtx = useGSAP(
 		(self) => {
@@ -65,13 +64,6 @@ export default function Intro() {
 				},
 			});
 
-			// mobile
-			mm.add(MediaQuery.Mobile, () => {
-				gsap.set(introImgRef.current, {
-					height: "auto",
-				});
-			});
-
 			// desktop
 			mm.add(MediaQuery.Desktop, () => {
 				tl.to(bgImgRef.current, {
@@ -113,7 +105,7 @@ export default function Intro() {
 
 			<div
 				ref={bgImgRef}
-				className="relative w-full h-[80vh] md:h-[100vh] top-0 clip-inset-0 md:clip-inset-10 -mt-[5%]"
+				className="relative w-full h-[80vh] md:h-[100vh] top-0 clip-inset-0 md:clip-inset-10 md:-mt-[10%]"
 			>
 				<Image
 					fill

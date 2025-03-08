@@ -33,7 +33,7 @@ export default function LocalTime({ className }: LocalTimeProps) {
 		return () => {
 			clearInterval(timeTick);
 		};
-	}, [localTimeRef.current]);
+	}, []);
 
 	return (
 		<div className={cn("flex flex-col", className)}>

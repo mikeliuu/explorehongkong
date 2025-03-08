@@ -27,6 +27,7 @@ export default function OverlayIntro() {
 	useLayoutEffect(() => {
 		window.document.body.style.pointerEvents = "none";
 		window.document.body.style.overflow = "hidden";
+		window.document.body.style.height = "100%";
 
 		// switch image
 		const interval = setInterval(() => {
@@ -47,13 +48,14 @@ export default function OverlayIntro() {
 		gsap.to(imageRef.current, {
 			opacity: 0,
 			ease: "expo.out",
-			delay: 2.9,
+			delay: 3,
 			duration: 0.5,
 			onComplete: () => {
 				clearInterval(interval);
 
 				window.document.body.style.pointerEvents = "auto";
 				window.document.body.style.overflow = "auto";
+				window.document.body.style.height = "auto";
 
 				window.scrollTo(0, 0);
 
@@ -69,13 +71,13 @@ export default function OverlayIntro() {
 			zIndex: -1,
 			duration: 1,
 			ease: "expo.out",
-			delay: 3,
+			delay: 3.5,
 		});
 
 		return () => {
 			clearInterval(interval);
 		};
-	}, []);
+	}, [setIntroStatus]);
 
 	return (
 		<div
