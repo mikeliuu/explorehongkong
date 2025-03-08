@@ -1,8 +1,5 @@
 "use client";
 
-import image2 from "@/app/images/hk2.avif";
-import image3 from "@/app/images/hk3.avif";
-
 import { MediaQuery } from "@/constants/media-query";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,8 +12,40 @@ import { useAppContext } from "@/contexts/app-context";
 export default function Intro() {
 	const { isIntroCompleted } = useAppContext();
 
+	const headingRef = useRef<HTMLHeadingElement>(null);
 	const bgImgRef = useRef<HTMLDivElement>(null);
 	const introImgRef = useRef<HTMLDivElement>(null);
+
+	const headingCtx = useGSAP(
+		(self) => {
+			let tw: gsap.core.Tween;
+
+			const init = () => {
+				if (headingRef.current) {
+					const headingBlocks = Array(3)
+						.fill("<span>Explore Hong Kong</span>")
+						.join(" ");
+
+					headingRef.current.innerHTML = headingBlocks;
+					tw = gsap
+						.to(headingRef.current, {
+							xPercent: -100,
+							repeat: -1,
+							duration: 5,
+							ease: "linear",
+						})
+						.totalProgress(0.5);
+				}
+			};
+
+			self.play = () => {
+				tw?.kill();
+
+				init();
+			};
+		},
+		[headingRef.current]
+	);
 
 	const gsapCtx = useGSAP((self) => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -31,7 +60,7 @@ export default function Intro() {
 				scrollTrigger: {
 					trigger: document.documentElement,
 					start: "top",
-					end: "25%",
+					end: "15%",
 					scrub: true,
 				},
 			});
@@ -45,20 +74,10 @@ export default function Intro() {
 
 			// desktop
 			mm.add(MediaQuery.Desktop, () => {
-				gsap.set(introImgRef.current, {
-					width: "100%",
-				});
-
 				tl.to(bgImgRef.current, {
 					clipPath: "inset(0%)",
-					duration: 1,
-				}).to(
-					introImgRef.current,
-					{
-						height: "100px",
-					},
-					0
-				);
+					duration: 0.5,
+				});
 			});
 		};
 
@@ -73,6 +92,7 @@ export default function Intro() {
 	useEffect(() => {
 		if (isIntroCompleted) {
 			gsapCtx.context.play();
+			headingCtx.context.play();
 
 			window.addEventListener("resize", () => gsapCtx.context.play());
 		}
@@ -80,44 +100,27 @@ export default function Intro() {
 		return () => {
 			window.removeEventListener("resize", () => gsapCtx.context.play());
 		};
-	}, [isIntroCompleted, gsapCtx.context]);
+	}, [isIntroCompleted, gsapCtx.context, headingCtx.context]);
 
 	return (
-		<section>
+		<section className="overflow-hidden">
+			<h1
+				ref={headingRef}
+				className="text-black text-8xl md:text-[10rem] text-nowrap font-bold text-left uppercase z-10 mb-12"
+			>
+				Explore Hong Kong
+			</h1>
+
 			<div
 				ref={bgImgRef}
-				className="absolute w-full h-[100vh] md:h-[120vh] top-0 filter brightness-[50%] clip-inset-0 md:clip-inset-10"
+				className="relative w-full h-[80vh] md:h-[100vh] top-0 clip-inset-0 md:clip-inset-10 -mt-[5%]"
 			>
 				<Image
 					fill
 					className="object-cover object-center"
-					src={image3.src}
+					src="/images/hk3.avif"
 					alt="Background image"
 				/>
-			</div>
-
-			<div className="flex justify-center items-center mt-[45vh] md:mt-[40vh]">
-				<div
-					ref={introImgRef}
-					data-scroll
-					data-scroll-speed="0.5"
-					className="absolute max-w-[350px] w-full aspect-[4/6] filter brightness-[65%]"
-				>
-					<Image
-						fill
-						className="object-cover object-center p-8 md:p-0"
-						src={image2.src}
-						alt="Intro image"
-					/>
-				</div>
-
-				<h1
-					data-scroll
-					data-scroll-speed="0.5"
-					className="text-slate-200 text-[7vw] font-bold text-center uppercase z-10"
-				>
-					Discover Vibrant Culture
-				</h1>
 			</div>
 		</section>
 	);

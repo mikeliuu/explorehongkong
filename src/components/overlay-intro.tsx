@@ -1,20 +1,20 @@
 "use client";
 
-import image1 from "@/app/images/hk1.avif";
-import image2 from "@/app/images/hk2.avif";
-import image3 from "@/app/images/hk3.avif";
-import image4 from "@/app/images/hk4.avif";
-import image5 from "@/app/images/hk5.avif";
-import image6 from "@/app/images/hk6.avif";
-import image7 from "@/app/images/hk7.avif";
-import image8 from "@/app/images/hk8.avif";
-
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { IntroStatus, useAppContext } from "@/contexts/app-context";
 import Image from "next/image";
 
-const images = [image1, image2, image3, image4, image5, image6, image7, image8];
+const images = [
+	"/images/hk1.avif",
+	"/images/hk2.avif",
+	"/images/hk3.avif",
+	"/images/hk4.avif",
+	"/images/hk5.avif",
+	"/images/hk6.avif",
+	"/images/hk7.avif",
+	"/images/hk8.avif",
+];
 
 export default function OverlayIntro() {
 	const { setIntroStatus } = useAppContext();
@@ -35,19 +35,19 @@ export default function OverlayIntro() {
 		// fade in image
 		gsap.to(imageRef.current, {
 			scale: 1,
-			duration: 1,
-			delay: 0.5,
+			duration: 0.5,
 			ease: "expo.out",
 			onStart: () => {
 				setIntroStatus(IntroStatus.InProgress);
 			},
 		});
 
-		// hide images in about 2 seconds
+		// hide images in about 3 seconds
 		gsap.to(imageRef.current, {
 			opacity: 0,
 			ease: "expo.out",
-			delay: 1.9,
+			delay: 2.9,
+			duration: 0.5,
 		});
 
 		// fade out overlay in 2 seconds
@@ -57,7 +57,7 @@ export default function OverlayIntro() {
 			zIndex: -1,
 			duration: 1,
 			ease: "expo.out",
-			delay: 2,
+			delay: 3,
 			onComplete: () => {
 				clearInterval(interval);
 				window.document.body.style.position = "unset";
@@ -82,9 +82,10 @@ export default function OverlayIntro() {
 				className="flex aspect-video items-center justify-center rounded-sm bg-cover bg-center bg-transparent-80 scale-0 w-64 sm:w-96"
 			>
 				<Image
-					className="object-cover object-center filter brightness-[65%]"
 					fill
-					src={images[imageIndex].src}
+					priority
+					className="object-cover object-center filter brightness-[65%]"
+					src={images[imageIndex]}
 					alt="overlay image"
 				/>
 

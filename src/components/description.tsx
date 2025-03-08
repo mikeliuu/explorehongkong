@@ -8,14 +8,14 @@ import { useAppContext } from "@/contexts/app-context";
 import { useGSAP } from "@gsap/react";
 
 const descriptions: string[] = [
-	"Explore vibrant cityscapes",
-	"Blend of tradition and modern",
-	"Discover hidden treasures",
+	"Hong Kong is a city like no other, where ancient traditions blend seamlessly with modern innovation.",
+	"This cosmopolitan hub is home to a unique fusion of cultures, where East meets West and the old meets the new.",
+	"From the stunning skyline to the bustling streets, Hong Kong is a city that will leave you breathless and wanting more.",
 ];
 
-export default function Description() {
+export default function Description({}) {
 	return (
-		<section className="relative text-xl md:text-[4vw] font-semibold md:font-normal mt-[40vh] md:mt-[35vh] mb-[10vh] px-6 md:px-[10vw] z-10">
+		<section className="relative text-xl md:text-[4vw] font-semibold md:font-normal mt-8 mb-[10vh] px-4 py-8 z-10">
 			{descriptions.map((desc) => (
 				<AnimatedText key={desc}>{desc}</AnimatedText>
 			))}
@@ -41,7 +41,7 @@ function AnimatedText({
 			tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: textRef.current,
-					start: "bottom+=200px bottom",
+					start: "bottom bottom",
 					end: "bottom+=400px bottom",
 					scrub: true,
 				},
@@ -50,10 +50,9 @@ function AnimatedText({
 			tl.add([
 				gsap.fromTo(
 					textRef.current,
-					{ opacity: 0.3 },
+					{ opacity: 0.2 },
 					{
 						opacity: 1,
-						color: "rgb(226 232 240)",
 						ease: "power3.out",
 						duration: 1,
 					}
@@ -83,7 +82,7 @@ function AnimatedText({
 	return (
 		<p
 			ref={textRef}
-			className="relative text-gray-800 uppercase tracking-tight leading-normal"
+			className="relative text-black tracking-tight leading-loose md:leading-relaxed"
 		>
 			{children}
 		</p>

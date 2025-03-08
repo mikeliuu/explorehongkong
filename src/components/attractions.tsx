@@ -30,25 +30,25 @@ interface AttractionCardProps {
 const attractions: Attraction[] = [
 	{
 		name: "Mongkok Market",
-		src: image2.src,
+		src: "/images/hk2.avif",
 		description:
 			"Welcome to the bustling streets of Mong Kok, one of the most densely populated areas in the world. The Mong Kok Market is a treasure trove of sights, sounds and smells, with a dazzling array of goods on display - from fresh produce to souvenirs, and from traditional Chinese medicine to avant-garde fashion. Get ready to immerse yourself in the vibrant atmosphere of this iconic Hong Kong market, where the sounds of haggling vendors and the aroma of street food will leave you wanting more.",
 	},
 	{
 		name: "Victoria Harbour",
-		src: image3.src,
+		src: "/images/hk3.avif",
 		description:
 			"Take a stroll along the majestic Victoria Harbour, one of the most iconic landmarks in Hong Kong. The harbour is a breathtaking sight to behold, with towering skyscrapers and neon lights reflecting off the water. The harbour is also home to the famous Star Ferry, which has been in operation since 1888. The ferry is a popular tourist attraction and offers stunning views of the city skyline. The harbour is also a popular spot for boat tours, which offer a unique perspective on the city's history and culture. Whether you're looking for a romantic evening cruise or a thrilling adventure, Victoria Harbour has something for everyone.",
 	},
 	{
 		name: "Temple Street",
-		src: image4.src,
+		src: "/images/hk4.avif",
 		description:
 			"Experience the vibrant energy of Temple Street, one of the most famous night markets in Hong Kong. Located in the heart of Kowloon, this bustling street is a treasure trove of eclectic goods, from antiques and collectibles to souvenirs and street food. The street is also home to fortune tellers, palm readers and face changers, adding to the area's unique charm. As the night falls, the street transforms into a dazzling display of neon lights and bustling activity, making it a must-visit destination for any traveler to Hong Kong.",
 	},
 	{
 		name: "Choi Hung Estate",
-		src: image7.src,
+		src: "/images/hk7.avif",
 		description:
 			"Choi Hung Estate, a public housing estate in the heart of Hong Kong, is a kaleidoscope of colours and a testament to the city's vibrant energy. The estate's iconic rainbow-hued buildings have become a popular spot for photography and Instagram-worthy moments, and its bustling streets are filled with the sounds of Cantonese opera, mahjong games and lively chatter.",
 	},
