@@ -31,7 +31,7 @@ export default function Intro() {
 						.to(headingRef.current, {
 							xPercent: -100,
 							repeat: -1,
-							duration: 5,
+							duration: 8,
 							ease: "linear",
 						})
 						.totalProgress(0.5);

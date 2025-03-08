@@ -34,7 +34,7 @@ function Location({ className }: { className?: string }) {
 		<div className={cn("flex flex-col", className)}>
 			<div>Location</div>
 			<Link href="https://maps.google.com/maps?q=hong%20kong" target="_blank">
-				22°19'N, 114°11'E
+				22°19&apos;N, 114°11&apos;E
 			</Link>
 		</div>
 	);

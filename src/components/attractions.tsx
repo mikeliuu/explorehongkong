@@ -1,10 +1,5 @@
 "use client";
 
-import image2 from "@/app/images/hk2.avif";
-import image3 from "@/app/images/hk3.avif";
-import image4 from "@/app/images/hk4.avif";
-import image7 from "@/app/images/hk7.avif";
-
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
