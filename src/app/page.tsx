@@ -1,29 +1,25 @@
-"use client";
-
 import Description from "@/components/description";
 import Intro from "@/components/intro";
 import Attractions from "@/components/attractions";
-import { useLayoutEffect } from "react";
 import OverlayIntro from "@/components/overlay-intro";
 import Header from "@/components/header";
+import LocomotiveScroll from "@/components/locomotive-scroll";
+import { fetchWeather } from "@/server/actions/weather-api";
 
-export default function Home() {
-	// init smooth scroll
-	useLayoutEffect(() => {
-		(async () => {
-			const LocomotiveScroll = (await import("locomotive-scroll")).default;
-
-			new LocomotiveScroll();
-		})();
-	}, []);
+export default async function Home() {
+	const temperature = await fetchWeather("hong%20kong");
 
 	return (
-		<main>
-			<OverlayIntro />
-			<Header />
-			<Intro />
-			<Description />
-			<Attractions />
-		</main>
+		<>
+			<LocomotiveScroll />
+
+			<main>
+				<OverlayIntro />
+				<Header temperature={temperature?.current.temp_c!} />
+				<Intro />
+				<Description />
+				<Attractions />
+			</main>
+		</>
 	);
 }

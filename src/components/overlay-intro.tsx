@@ -25,7 +25,8 @@ export default function OverlayIntro() {
 	const [imageIndex, setImageIndex] = useState(0);
 
 	useLayoutEffect(() => {
-		window.document.body.style.position = "fixed";
+		window.document.body.style.pointerEvents = "none";
+		window.document.body.style.overflow = "hidden";
 
 		// switch image
 		const interval = setInterval(() => {
@@ -48,6 +49,17 @@ export default function OverlayIntro() {
 			ease: "expo.out",
 			delay: 2.9,
 			duration: 0.5,
+			onComplete: () => {
+				clearInterval(interval);
+
+				window.document.body.style.pointerEvents = "auto";
+				window.document.body.style.overflow = "auto";
+
+				window.scrollTo(0, 0);
+
+				// set to completed to trigger main page animation
+				setIntroStatus(IntroStatus.Completed);
+			},
 		});
 
 		// fade out overlay in 2 seconds
@@ -58,13 +70,6 @@ export default function OverlayIntro() {
 			duration: 1,
 			ease: "expo.out",
 			delay: 3,
-			onComplete: () => {
-				clearInterval(interval);
-				window.document.body.style.position = "unset";
-
-				// set to completed to trigger main page animation
-				setIntroStatus(IntroStatus.Completed);
-			},
 		});
 
 		return () => {
