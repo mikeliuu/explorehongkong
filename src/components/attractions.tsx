@@ -22,6 +22,8 @@ interface AttractionCardProps {
 	isReversed?: boolean;
 }
 
+gsap.registerPlugin(ScrollTrigger);
+
 const attractions: Attraction[] = [
 	{
 		name: "Mongkok Market",
@@ -85,8 +87,6 @@ function AttractionCard({
 	const descRef = useRef<HTMLDivElement>(null);
 
 	const gsapCtx = useGSAP((self) => {
-		gsap.registerPlugin(ScrollTrigger);
-
 		let wrapperTimeline: gsap.core.Timeline;
 		let titleTimeline: gsap.core.Timeline;
 		let imageTimeline: gsap.core.Timeline;

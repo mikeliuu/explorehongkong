@@ -7,23 +7,9 @@ import { useRef } from "react";
 import { useAppContext } from "@/contexts/app-context";
 import { useGSAP } from "@gsap/react";
 
-const descriptions: string[] = [
-	"Hong Kong is a city like no other, where ancient traditions blend seamlessly with modern innovation.",
-	"This cosmopolitan hub is home to a unique fusion of cultures, where East meets West and the old meets the new.",
-	"From the stunning skyline to the bustling streets, Hong Kong is a city that will leave you breathless and wanting more.",
-];
+gsap.registerPlugin(ScrollTrigger);
 
-export default function Description({}) {
-	return (
-		<section className="relative text-xl md:text-[4vw] font-semibold md:font-normal mt-8 mb-[10vh] px-4 py-8 z-10">
-			{descriptions.map((desc) => (
-				<AnimatedText key={desc}>{desc}</AnimatedText>
-			))}
-		</section>
-	);
-}
-
-function AnimatedText({
+export default function AnimatedText({
 	children,
 }: {
 	children: React.ReactNode;
@@ -33,8 +19,6 @@ function AnimatedText({
 	const textRef = useRef<HTMLParagraphElement>(null);
 
 	const gsapCtx = useGSAP((self) => {
-		gsap.registerPlugin(ScrollTrigger);
-
 		let tl: gsap.core.Timeline;
 
 		const init = () => {

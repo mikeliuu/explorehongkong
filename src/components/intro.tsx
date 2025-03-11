@@ -105,7 +105,7 @@ export default function Intro() {
 
 			<div
 				ref={bgImgRef}
-				className="relative w-full h-[80vh] md:h-[100vh] top-0 clip-inset-0 md:clip-inset-10 md:-mt-[10%]"
+				className="relative w-full h-[80vh] md:h-[100vh] top-0 clip-inset-0 md:clip-inset-10 md:-mt-[5%]"
 			>
 				<Image
 					fill

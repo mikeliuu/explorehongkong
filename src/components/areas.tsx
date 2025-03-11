@@ -4,8 +4,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { useGSAP } from "@gsap/react";
-
 import { useAppContext } from "@/contexts/app-context";
 
 interface Area {
@@ -28,70 +26,75 @@ const areas: Area[] = [
 	},
 ];
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Areas() {
 	const { isIntroCompleted } = useAppContext();
 
 	const areasRef = useRef<HTMLDivElement>(null);
-
-	const gsapCtx = useGSAP(
-		(self) => {
-			gsap.registerPlugin(ScrollTrigger);
-
-			let tl: gsap.core.Timeline;
-
-			const init = () => {
-				if (areasRef.current) {
-					tl = gsap.timeline({
-						scrollTrigger: {
-							trigger: areasRef.current,
-							start: "top-=100px top",
-							end: "+=" + areasRef.current.offsetWidth,
-							scrub: true,
-							pin: true,
-							anticipatePin: 1,
-						},
-					});
-
-					tl.to(areasRef.current, {
-						x:
-							-(
-								areasRef.current.scrollWidth -
-								document.documentElement.clientWidth
-							) + "px",
-					});
-				}
-			};
-
-			self.play = () => {
-				tl?.kill();
-
-				init();
-			};
-		},
-		[areasRef.current]
-	);
+	const slideRef = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
-		if (isIntroCompleted) {
-			gsapCtx.context.play();
+		let animation: gsap.core.Tween | null = null;
 
-			window.addEventListener("resize", () => gsapCtx.context.play());
+		const getAmountToScroll = () => {
+			if (areasRef.current) {
+				const raceWidth = areasRef.current.scrollWidth ?? 0;
+				const offsetWidth = areasRef.current.offsetWidth ?? 0;
+				return raceWidth - offsetWidth;
+			}
+
+			return 0;
+		};
+
+		const handleResize = () => {
+			if (areasRef.current) {
+				if (animation) {
+					animation.kill();
+				}
+
+				animation = gsap.to(areasRef.current, {
+					x: () => -getAmountToScroll(),
+					scrollTrigger: {
+						trigger: areasRef.current,
+						start: "top 20%",
+						end: () => "+=" + getAmountToScroll(),
+						scrub: true,
+						pin: true,
+						anticipatePin: 1,
+						// snap: 0 // TODO, snap to nearest slide
+					},
+				});
+			}
+		};
+
+		if (isIntroCompleted) {
+			handleResize();
+
+			window.addEventListener("resize", () => handleResize);
 		}
 
 		return () => {
-			window.removeEventListener("resize", () => gsapCtx.context.play());
+			if (animation) {
+				animation.kill();
+			}
+
+			ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+			window.removeEventListener("resize", handleResize);
 		};
-	}, [isIntroCompleted, gsapCtx.context]);
+	}, [isIntroCompleted]);
 
 	return (
 		<section ref={areasRef}>
-			<ul className="flex flex-row gap-8 w-[800vw] h-[80vh]">
+			<ul className="w-max h-full overflow-hidden flex flex-row gap-12 px-4">
 				{areas.map(({ name, src }) => (
 					<li
 						key={name}
-						className="flex flex-col justify-center w-full max-w-[500px] md:max-w-[800px] m-4"
+						ref={slideRef}
+						className="w-[90vw] h-full flex flex-col justify-center"
 					>
-						<div className="relative w-full aspect-[6/4]">
+						<div className="relative w-full aspect-[6/4] px-4">
 							<Image
 								fill
 								priority
