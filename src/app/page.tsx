@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Areas from "@/components/areas";
 import LocomotiveScroll from "@/components/locomotive-scroll";
 import { fetchWeather } from "@/server/actions/weather-api";
+import Footer from "@/components/footer";
 
 const descriptions: string[] = [
 	"Hong Kong is a city like no other, where ancient traditions blend seamlessly with modern innovation.",
@@ -27,26 +28,16 @@ export default async function Home() {
 		<>
 			<LocomotiveScroll />
 
-			<main className="overflow-hidden">
+			<section className="overflow-hidden">
 				<OverlayIntro />
-				<Header temperature={temperature?.current.temp_c} />
+			</section>
+			<Header temperature={temperature?.current.temp_c} />
+			<main className="overflow-hidden">
 				<Intro />
 				<Description />
 				<Areas />
-				<div className="my-8 px-4">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius amet
-					tenetur veritatis sed quas reprehenderit libero eum sunt iste
-					accusamus ab harum quisquam necessitatibus fugit sapiente, officiis
-					suscipit inventore praesentium! Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Eius amet tenetur veritatis sed quas reprehenderit
-					libero eum sunt iste accusamus ab harum quisquam necessitatibus fugit
-					sapiente, officiis suscipit inventore praesentium! Lorem ipsum dolor
-					sit amet consectetur adipisicing elit. Eius amet tenetur veritatis sed
-					quas reprehenderit libero eum sunt iste accusamus ab harum quisquam
-					necessitatibus fugit sapiente, officiis suscipit inventore
-					praesentium!
-				</div>
 			</main>
+			<Footer />
 		</>
 	);
 }

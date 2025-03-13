@@ -86,12 +86,12 @@ export default function OverlayIntro() {
 		>
 			<div
 				ref={imageRef}
-				className="flex aspect-video items-center justify-center rounded-sm bg-cover bg-center bg-transparent-80 scale-0 w-64 sm:w-96"
+				className="flex aspect-video items-center justify-center rounded-sm bg-cover bg-center bg-transparent-80 scale-0 w-72 sm:w-96"
 			>
 				<Image
 					fill
 					priority
-					className="object-cover object-center filter brightness-[65%]"
+					className="object-cover object-center filter brightness-[65%] rounded-lg"
 					src={images[imageIndex]}
 					alt="overlay image"
 				/>

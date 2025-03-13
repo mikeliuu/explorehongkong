@@ -6,45 +6,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
-
 import { useAppContext } from "@/contexts/app-context";
+import TextMarquee from "@/components/text-marquee";
+
+const HEADING = "Explore Hong Kong";
 
 export default function Intro() {
 	const { isIntroCompleted } = useAppContext();
 
-	const headingRef = useRef<HTMLHeadingElement>(null);
 	const bgImgRef = useRef<HTMLDivElement>(null);
-
-	const headingCtx = useGSAP(
-		(self) => {
-			let tw: gsap.core.Tween;
-
-			const init = () => {
-				if (headingRef.current) {
-					const headingBlocks = Array(3)
-						.fill("<span>Explore Hong Kong</span>")
-						.join(" ");
-
-					headingRef.current.innerHTML = headingBlocks;
-					tw = gsap
-						.to(headingRef.current, {
-							xPercent: -100,
-							repeat: -1,
-							duration: 8,
-							ease: "linear",
-						})
-						.totalProgress(0.5);
-				}
-			};
-
-			self.play = () => {
-				tw?.kill();
-
-				init();
-			};
-		},
-		[headingRef.current]
-	);
 
 	const gsapCtx = useGSAP((self) => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -64,8 +34,19 @@ export default function Intro() {
 				},
 			});
 
+			// mobile
+			mm.add(MediaQuery.Mobile, () => {
+				gsap.set(bgImgRef.current, {
+					clipPath: "inset(0%)",
+				});
+			});
+
 			// desktop
 			mm.add(MediaQuery.Desktop, () => {
+				gsap.set(bgImgRef.current, {
+					clipPath: "inset(10%)",
+				});
+
 				tl.to(bgImgRef.current, {
 					clipPath: "inset(0%)",
 					duration: 0.5,
@@ -84,7 +65,6 @@ export default function Intro() {
 	useEffect(() => {
 		if (isIntroCompleted) {
 			gsapCtx.context.play();
-			headingCtx.context.play();
 
 			window.addEventListener("resize", () => gsapCtx.context.play());
 		}
@@ -92,20 +72,20 @@ export default function Intro() {
 		return () => {
 			window.removeEventListener("resize", () => gsapCtx.context.play());
 		};
-	}, [isIntroCompleted, gsapCtx.context, headingCtx.context]);
+	}, [isIntroCompleted, gsapCtx.context]);
 
 	return (
 		<section className="overflow-hidden">
-			<h1
-				ref={headingRef}
+			<h1 className="sr-only">{HEADING}</h1>
+
+			<TextMarquee
+				text={HEADING}
 				className="text-black text-8xl md:text-[10rem] text-nowrap font-bold text-left uppercase z-10 mb-12"
-			>
-				Explore Hong Kong
-			</h1>
+			/>
 
 			<div
 				ref={bgImgRef}
-				className="relative w-full h-[80vh] md:h-[100vh] top-0 clip-inset-0 md:clip-inset-10 md:-mt-[5%]"
+				className="relative w-full h-[80vh] md:h-[100vh] top-0"
 			>
 				<Image
 					fill

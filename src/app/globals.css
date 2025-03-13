@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-	.clip-inset-0 {
-		clip-path: inset(0%);
-	}
-
-	.clip-inset-10 {
-		clip-path: inset(10%);
-	}
-}
-
 :root {
 	--background: #ffffff;
 	--foreground: #171717;

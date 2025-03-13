@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Header({ temperature }: { temperature?: number }) {
 	return (
-		<header className="grid grid-cols-2 md:grid-cols-12 w-full text-sm text-black px-4 py-8 md:p-12 mb-4 md:mb-12 gap-4 md:gap-2">
+		<header className="grid grid-cols-2 md:grid-cols-12 w-full text-black px-4 py-8 md:p-12 mb-4 md:mb-12 gap-4 md:gap-2">
 			<Accomendation className="md:col-span-2" />
 
 			<Location className="md:col-start-3 md:col-span-3 md:items-start md:justify-self-auto order-2 md:order-none" />
