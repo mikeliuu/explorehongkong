@@ -32,7 +32,7 @@ export default function OverlayIntro() {
 		// switch image
 		const interval = setInterval(() => {
 			setImageIndex((prev) => (prev + 1) % images.length);
-		}, 250);
+		}, 150);
 
 		// fade in image
 		gsap.to(imageRef.current, {

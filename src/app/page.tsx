@@ -18,7 +18,7 @@ export default async function Home() {
 	const temperature = await fetchWeather("hong%20kong");
 
 	const Description = () => (
-		<section className="relative text-xl md:text-[4vw] px-4 py-8 z-10">
+		<section className="relative text-xl md:text-[4vw] py-8 px-4 md:px-12">
 			{descriptions.map((desc) => (
 				<AnimatedText key={desc}>{desc}</AnimatedText>
 			))}

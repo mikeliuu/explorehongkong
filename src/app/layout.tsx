@@ -36,7 +36,7 @@ export default function RootLayout({
 		<AppContextProvider>
 			<html lang="en">
 				<body
-					className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F7F7F7]`}
+					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				>
 					{children}
 				</body>
