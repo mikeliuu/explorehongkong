@@ -38,7 +38,7 @@ export default function LocalTime({ className }: LocalTimeProps) {
 	return (
 		<div className={cn("flex flex-col", className)}>
 			<div>Local Time</div>
-			<div ref={localTimeRef} className="text-sm text-black" />
+			<div ref={localTimeRef} className="text-black" />
 		</div>
 	);
 }

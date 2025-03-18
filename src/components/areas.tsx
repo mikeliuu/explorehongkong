@@ -62,12 +62,12 @@ export default function Areas() {
 					x: () => -getAmountToScroll(),
 					scrollTrigger: {
 						trigger: areasRef.current,
-						start: "top 20%",
+						start: "top-=30%",
 						end: () => "+=" + getAmountToScroll(),
 						scrub: true,
 						pin: true,
 						anticipatePin: 1,
-						// snap: 0 // TODO, snap to nearest slide
+						markers: true,
 					},
 				});
 			}

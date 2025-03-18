@@ -6,6 +6,7 @@ import Areas from "@/components/areas";
 import LocomotiveScroll from "@/components/locomotive-scroll";
 import { fetchWeather } from "@/server/actions/weather-api";
 import Footer from "@/components/footer";
+import Contact from "@/components/contact";
 
 const descriptions: string[] = [
 	"Hong Kong is a city like no other, where ancient traditions blend seamlessly with modern innovation.",
@@ -17,7 +18,7 @@ export default async function Home() {
 	const temperature = await fetchWeather("hong%20kong");
 
 	const Description = () => (
-		<section className="relative text-xl md:text-[4vw] font-semibold md:font-normal my-12 px-4 py-8 z-10">
+		<section className="relative text-xl md:text-[4vw] px-4 py-8 z-10">
 			{descriptions.map((desc) => (
 				<AnimatedText key={desc}>{desc}</AnimatedText>
 			))}
@@ -25,19 +26,20 @@ export default async function Home() {
 	);
 
 	return (
-		<>
+		<div className="bg-white">
 			<LocomotiveScroll />
 
 			<section className="overflow-hidden">
 				<OverlayIntro />
 			</section>
 			<Header temperature={temperature?.current.temp_c} />
-			<main className="overflow-hidden">
+			<main className="overflow-hidden ">
 				<Intro />
 				<Description />
 				<Areas />
+				<Contact />
 			</main>
 			<Footer />
-		</>
+		</div>
 	);
 }
